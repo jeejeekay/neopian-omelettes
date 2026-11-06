@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "neopianomelettes",
+	"version": "${version}",
+	"name": "Neopian Omelettes",
+	"description": "A mod that adds a variety of powerful omelettes!",
+	"authors": [
+		"IGoByJake"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/neopian-omelettes",
+		"sources": "https://github.com/jeejeekay/neopian-omelettes"
+	},
+	"license": "MIT",
+	"icon": "assets/neopianomelettes/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.igobyjake.neopianomelettes.neopianomelettes"
+		],
+		"fabric-datagen": [
+			"net.igobyjake.neopianomelettes.neopianomelettesdatagenerator"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.17.0",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

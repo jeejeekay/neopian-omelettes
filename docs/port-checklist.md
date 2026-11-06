@@ -1,0 +1,46 @@
+# Port checklist — TEMPLATE
+
+Copy this file to `docs/ports/<loader>-<mc version>.md` (e.g. `docs/ports/neoforge-26.1.md`)
+at the start of every port, and tick boxes as you go. Commit it along with the code.
+
+**Loader:** NeoForge / Fabric  **From:** ______  **To:** ______  **Branch:** `mc/______`
+
+## 1. Before touching code
+- [ ] Branch created from the previous version's branch (`git switch mc/<old>` → `git switch -c mc/<new>`)
+- [ ] Read the loader's release/porting notes for this version (NeoForge blog "NeoForge for Minecraft X", Fabric docs "Porting to X")
+- [ ] Read the vanilla migration primer for this version (ChampionAsh5357's primers, linked from both)
+- [ ] Looked up current versions: Minecraft, loader, API (Fabric API), mappings, Gradle plugin (MDG / Loom), Gradle, required Java
+
+## 2. Build files
+- [ ] `gradle.properties`: minecraft / loader / API / mappings versions bumped
+- [ ] `gradle-wrapper.properties`: Gradle version bumped if the plugin needs it
+- [ ] `build.gradle`: plugin version bumped, Java version correct
+- [ ] Minecraft version range updated (`neoforge.mods.toml` `minecraft_version_range` / `fabric.mod.json` `depends.minecraft`)
+- [ ] Mod version bumped (`mod_version`)
+- [ ] `./gradlew build` gets past the configuration step (Minecraft downloads + decompiles)
+
+## 3. Compile errors, file by file
+- [ ] Main mod class / entrypoints
+- [ ] ModItems (registration, item properties)
+- [ ] ModFoodProperties (food values, Consumable effects)
+- [ ] ModItemGroups / ModCreativeModeTabs
+- [ ] Datagen (ModModelProvider, DataGenerators)
+- [ ] GameTests (src/gametest)
+- [ ] `./gradlew build` succeeds with no errors
+
+## 4. Datagen and resources
+- [ ] Ran datagen (`runData` / `runDatagen`)
+- [ ] Diffed generated files against the previous version (`git diff`): nothing unexpectedly missing
+- [ ] Hand-written JSON (recipes, tags) still matches this version's format
+
+## 5. In-game test (only you can do this part)
+- [ ] Game launches, no errors in log mentioning `neopianomelettes`
+- [ ] The visual check in docs/TESTING.md
+
+## 6. Release
+- [ ] Commit, then tag: `git tag <loader>-<mc>-<mod version>`
+- [ ] `git push` and `git push --tags`
+- [ ] Built jar from `build/libs/` uploaded (Modrinth / CurseForge)
+
+## Notes / mistakes found
+-

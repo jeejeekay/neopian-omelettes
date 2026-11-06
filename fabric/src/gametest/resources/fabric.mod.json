@@ -1,0 +1,17 @@
+{
+	"schemaVersion": 1,
+	"id": "neopianomelettes-test",
+	"version": "1.0.0",
+	"name": "Neopian Omelettes GameTests",
+	"description": "Automated tests. Only used in development, never shipped.",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-gametest": [
+			"net.igobyjake.neopianomelettes.gametest.OmeletteGameTests"
+		]
+	},
+	"depends": {
+		"neopianomelettes": "*",
+		"fabric-api": "*"
+	}
+}

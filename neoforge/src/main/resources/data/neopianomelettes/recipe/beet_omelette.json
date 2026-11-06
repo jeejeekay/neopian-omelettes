@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "neopianomelettes:plain_omelette",
+  "ingredients": [
+    "#minecraft:eggs",
+    "#minecraft:eggs",
+    "#minecraft:eggs",
+    "minecraft:beetroot",
+    "minecraft:beetroot",
+    "minecraft:beetroot"
+  ],
+  "result": {
+    "count": 1,
+    "id": "neopianomelettes:beet_omelette"
+  }
+}

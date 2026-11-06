@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "neopianomelettes:item/plain_omelette_3"
+  }
+}
