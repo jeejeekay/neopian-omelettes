@@ -1,6 +1,6 @@
 package net.igobyjake.neopianomelettes.item;
 
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.igobyjake.neopianomelettes.neopianomelettes;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,7 +13,7 @@ public class ModItemGroups {
     // Only the full omelettes are listed; the nibbled/partial stages appear when you eat them.
     public static final CreativeModeTab NEOPIAN_OMELETTES_TAB = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB,
             Identifier.fromNamespaceAndPath(neopianomelettes.MOD_ID, "neopian_omelettes_tab"),
-            FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.MEAT_FEAST_OMELETTE))
+            FabricCreativeModeTab.builder().icon(() -> new ItemStack(ModItems.MEAT_FEAST_OMELETTE))
                     .title(Component.translatable("itemgroup.neopianomelettes.neopian_omelettes_tab"))
                     .displayItems((parameters, output) -> {
                         output.accept(ModItems.PLAIN_OMELETTE);
