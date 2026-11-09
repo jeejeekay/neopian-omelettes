@@ -1,0 +1,3 @@
+# Made by compile.sh / compile.bat
+.build/
+dist/
