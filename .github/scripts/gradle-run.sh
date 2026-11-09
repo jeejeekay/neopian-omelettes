@@ -4,8 +4,15 @@
 # usage: .github/scripts/gradle-run.sh <label> <gradle args...>
 label="$1"; shift
 log="$(mktemp)"
-./gradlew "$@" --console=plain 2>&1 | tee "$log"
-code=${PIPESTATUS[0]}
+# Up to 3 tries, but only when the failure is downloading Gradle itself (its servers sometimes time out / 504).
+for try in 1 2 3; do
+  ./gradlew "$@" --console=plain 2>&1 | tee "$log"
+  code=${PIPESTATUS[0]}
+  [ "$code" -eq 0 ] && break
+  grep -qE "IOException.*(gradle-distributions|services\.gradle\.org|gradle-[0-9.]+-bin\.zip)|Downloading from https://services\.gradle\.org" "$log" || break
+  echo "::warning title=${label}::Gradle download failed (try $try of 3), retrying in 20 s"
+  sleep 20
+done
 if [ "$code" -ne 0 ]; then
   {
     grep -E "^\S+\.java:[0-9]+: error:|^e: |error: |^> |What went wrong|Could not|Caused by|Exception|FAILED|[Ff]ailed|GameTest|neopianomelettes:" "$log" \
