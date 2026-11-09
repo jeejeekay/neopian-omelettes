@@ -4,8 +4,9 @@ name: build
 
 on:
   push:
+    branches: ['mc/**']   # only the Minecraft-version branches have mod code (main is just a README)
   pull_request:
-  workflow_dispatch:   # adds a "Run workflow" button in the Actions tab
+  workflow_dispatch:   # "Run workflow" button in the Actions tab: pick an mc/* branch in its dropdown
 
 jobs:
   build:
