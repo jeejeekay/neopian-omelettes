@@ -16,10 +16,10 @@ Each loader is its own separate Gradle project — open each folder on its own i
 
 | Branch       | Minecraft | NeoForge   | Fabric API | Java | Status |
 |--------------|-----------|------------|------------|------|--------|
-| `mc/1.21.11` | 1.21.11   | 21.11.48   | 0.141.6    | 21   | written, not built yet |
-| `mc/26.1`    | 26.1.2    | 26.1.2.125 | 0.155.3    | 25   | written, not built yet |
-| `mc/26.2`    | 26.2      | 26.2.0.66  | 0.161.0    | 25   | written, not built yet |
-| `mc/26.3`    | 26.3      | 26.3.0.100 | 0.165.2    | 25   | written, not built yet |
+| `mc/1.21.11` | 1.21.11   | 21.11.48   | 0.141.6    | 21   | builds + tests pass on GitHub (2026-11-09) |
+| `mc/26.1`    | 26.1.2    | 26.1.2.125 | 0.155.3    | 25   | builds + tests pass on GitHub (2026-11-09) |
+| `mc/26.2`    | 26.2      | 26.2.0.66  | 0.161.0    | 25   | builds + tests pass on GitHub (2026-11-09) |
+| `mc/26.3`    | 26.3      | 26.3.0.100 | 0.165.2    | 25   | builds + tests pass on GitHub (2026-11-09) |
 
 Build settings (Gradle, Loom, ModDevGradle, versions) are copied from Rose Gold Equipment's branches,
 which build and pass their tests on GitHub Actions. Each branch was made from the one above it.
