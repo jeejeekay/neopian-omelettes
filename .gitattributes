@@ -1,0 +1,5 @@
+# Line endings for the build scripts (stored exactly as written)
+/compile.bat -text
+/install.bat -text
+/scripts/*.ps1 -text
+/*.sh text eol=lf

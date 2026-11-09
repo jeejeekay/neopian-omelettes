@@ -35,6 +35,20 @@ which is the same file on both loaders.
 To add a new omelette: one `omelette(...)` line in `ModItems` (both loaders), food + effect in
 `ModFoodProperties` (both), 3 textures, 3 lang lines, a recipe, then run datagen.
 
+## Building the jars yourself
+
+| | Windows | macOS / Linux |
+|---|---|---|
+| 1. One-time setup (installs JDK 25 + Git) | double-click `install.bat` | `./install.sh` |
+| 2. Build every version, both loaders | double-click `compile.bat` | `./compile.sh` |
+
+The jars land in `dist/`, named like `neopianomelettes-fabric-26.3-1.3.0.jar`; build logs are in `dist/logs/`.
+Options (both scripts): a version to build only that one (`compile.bat 26.3`), `--here` to build just the
+folder you have open *including uncommitted changes*, `--test` to also run the GameTests.
+
+Each version is built from its branch in a separate `.build/` folder, so the branch you have open is never switched.
+Only committed code is built (except with `--here`). JDK 25 builds every version; Gradle fetches the rest itself.
+
 ## Testing
 Every push is built and tested automatically: GitHub → **Actions** tab. See `docs/TESTING.md`.
 
