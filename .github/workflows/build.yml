@@ -1,0 +1,67 @@
+# This copy on main only lets GitHub find the workflow (it lists workflows from the default branch).
+# Builds run from the copy on each mc/* branch, which is the one that gets used for that branch.
+name: build
+
+on:
+  push:
+    branches: ['mc/**']   # only the Minecraft-version branches have mod code (main is just a README)
+  pull_request:
+  workflow_dispatch:   # "Run workflow" button in the Actions tab: pick an mc/* branch in its dropdown
+
+jobs:
+  build:
+    name: ${{ matrix.loader }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false          # one loader failing doesn't cancel the other
+      matrix:
+        include:
+          - loader: neoforge
+            java: "25"
+          - loader: fabric
+            java: "25"
+    defaults:
+      run:
+        working-directory: ${{ matrix.loader }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - uses: gradle/actions/setup-gradle@v4   # caches Minecraft + dependencies between runs
+
+      - name: Build (compile + jar)
+        run: |
+          chmod +x gradlew
+          bash ../.github/scripts/gradle-run.sh "${{ matrix.loader }} build" build
+
+      - name: Datagen
+        run: |
+          if [ "${{ matrix.loader }}" = "neoforge" ]; then t=runData; else t=runDatagen; fi
+          bash ../.github/scripts/gradle-run.sh "${{ matrix.loader }} datagen" $t
+
+      - name: Did datagen change anything?
+        # Doesn't fail the build; shows how generated files differ from what's committed.
+        run: |
+          git add -N . 2>/dev/null || true
+          d=$(git diff -U0 -- . ':!**/.cache/**' | grep -vE '^(index|@@)' | head -120)
+          echo "$d"
+          if [ -n "$d" ]; then echo "::notice title=${{ matrix.loader }} datagen diff::$(echo "$d" | sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}')"; fi
+
+      - name: GameTests
+        # Automated in-game checks (src/gametest), run headless.
+        run: |
+          if [ "${{ matrix.loader }}" = "neoforge" ]; then t=runGameTestServer; else t=runGameTest; fi
+          bash ../.github/scripts/gradle-run.sh "${{ matrix.loader }} gametests" $t
+          echo "::notice title=${{ matrix.loader }} gametests::$(grep -hoE '[0-9]+ (required )?tests? (passed|failed)[^"]*|All [0-9]+ required tests passed[^"]*' $(find . -name latest.log -not -path './build/tmp/*' 2>/dev/null) 2>/dev/null | head -3 | tr '\n' ' ')"
+
+      - name: Upload jars
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neopianomelettes-${{ matrix.loader }}
+          path: ${{ matrix.loader }}/build/libs/*.jar
+          if-no-files-found: ignore
