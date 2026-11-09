@@ -1,6 +1,6 @@
 # NeoForge 1.21.1 → 1.21.11  (branch `mc/1.21.11`)
 
-## Done (by Claude, not built yet)
+## Done (by Claude) — builds and all GameTests pass on GitHub Actions
 - [x] Build files copied from Rose Gold's working `mc/1.21.11` (NeoForge 21.11.48, ModDevGradle 2.0.123, Gradle 8.9 wrapper, Java 21)
 - [x] `minecraft_version_range=[1.21.11,1.22)`, `mod_version=1.3.0`
 - [x] Item registration: `ITEMS.registerItem(name, properties -> ...)` (1.21.2+ items need their ID set in the properties; `registerItem` does it)
@@ -11,8 +11,8 @@
 - [x] `EventBusSubscriber.Bus.MOD` removed (gone in 21.6+); the class had only empty handlers anyway
 
 ## Still to do
-- [ ] `./gradlew build` (or push → Actions)
-- [ ] `./gradlew runData`, then `git diff` (should be empty)
+- [x] `./gradlew build` (Actions green)
+- [x] datagen: no diff
 - [ ] Visual check in `docs/TESTING.md`
 
 ## Notes / mistakes found
